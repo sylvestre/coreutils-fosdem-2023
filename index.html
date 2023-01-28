@@ -31,7 +31,7 @@ class: center, middle
 
 Debian developer, LLVM/Clang contributor, and other things.
 
-Director at Mozilla (but this work is unrelated).
+Director at Mozilla (but this work is unrelated to Mozilla).
 
 And been managing some
 
@@ -44,6 +44,8 @@ developers but also worked next to Rust core developers.
 # Who am I ? (bis)
 
 I also uploaded the initial version of Rustc in Debian/Ubuntu.
+
+And maintainer of ripgrep, fd and some others Rust based packages in Debian/Ubuntu.
 ---
 
 # Early 2022
@@ -54,7 +56,7 @@ TODO insert image press covid
 
 # Started with
 
-TODO insert lego
+<img src="lego.png" />
 
 ---
 
@@ -239,10 +241,8 @@ We can find:
 * chown.s
 * cp.s
 * ...
- 
-https://archive.softwareheritage.org/browse/origin/directory/?branch=refs/heads/Research-PDP7-Snapshot-Development&origin_url=https://github.com/dspinellis/unix-history-repo
 
----
+https://archive.softwareheritage.org/browse/origin/directory/?branch=refs/heads/Research-PDP7-Snapshot-Development&origin_url=https://github.com/dspinellis/unix-history-repo
 
 # 'New' version in C
 
@@ -301,6 +301,57 @@ chmod()
 }
 ```
 
+
+---
+
+# A simple programming language
+
+We take it for granted and rarely think about it but<br />
+pipes `|` and redirection `>` are amazing
+
+Quick example:
+How would you implement an algorithm to find the 5 most popular words in all Shakespeare books? (with 6 chars or more)
+
+---
+
+# A simple programming language
+
+We take it for granted and rarely think about it but<br />
+pipes `|` and redirection `>` are amazing
+
+Quick example:
+How would you implement an algorithm to find the 5 most popular words in all Shakespeare books? (with 6 chars or more)
+
+```
+$ tr -cs A-Za-z '\n' < shakespeare.txt | tr A-Z a-z | grep -E '^.{6,}$' | sort |
+uniq -c | sort -rn | head -n 5
+```
+
+
+---
+
+# A simple programming language
+
+We take it for granted and rarely think about it but<br />
+pipes `|` and redirection `>` are amazing
+
+Quick example:
+How would you implement an algorithm to find the 5 most popular words in all Shakespeare books? (with 6 chars or more)
+
+```
+$ tr -cs A-Za-z '\n' < shakespeare.txt | tr A-Z a-z | grep -E '^.{6,}$' | sort |
+uniq -c | sort -rn | head -n 5
+```
+
+By the way, the results:
+```
+   1706 should
+   1125 father
+   1082 exeunt
+    952 before
+    876 master
+```
+
 ---
 
 # Fast forward to 2023
@@ -324,6 +375,9 @@ comm      factor     logname   pathchk  shuf      tr        yes
 cp        false      ls        pinky    sleep     true
 csplit    fmt        mkdir     pr       sort      truncate
 ```
+
+Note: grep, find, less, top or watch are NOT part of the coreutils.
+
 ---
 # Quick quizz
 
@@ -333,19 +387,19 @@ Who knows about ...
 
 Who knows about ...
 
-* cp/mv/rm/mkdir
+* ls/cp/mv/rm/mkdir
 ---
 # Quick quizz
 
 Who knows about ...
-* cp/mv/rm/mkdir
+* ls/cp/mv/rm/mkdir
 * chown/chmod/chgrp
 
 ---
 # Quick quizz
 
 Who knows about ...
-* cp/mv/rm/mkdir
+* ls/cp/mv/rm/mkdir
 * chown/chmod/chgrp
 * numfmt
 
@@ -353,7 +407,7 @@ Who knows about ...
 # Quick quizz
 
 Who knows about ...
-* cp/mv/rm/mkdir
+* ls/cp/mv/rm/mkdir
 * chown/chmod/chgrp
 * numfmt
 ```bash
@@ -365,7 +419,7 @@ Who knows about ...
 # Quick quizz
 
 Who knows about ...
-* cp/mv/rm/mkdir
+* ls/cp/mv/rm/mkdir
 * chown/chmod/chgrp
 * numfmt
 * pr
@@ -374,7 +428,7 @@ Who knows about ...
 # Quick quizz
 
 Who knows about ...
-* cp/mv/rm/mkdir
+* ls/cp/mv/rm/mkdir
 * chown/chmod/chgrp
 * numfmt
 * pr
@@ -386,7 +440,7 @@ Who knows about ...
 # Quick quizz
 
 Who knows about ...
-* cp/mv/rm/mkdir
+* ls/cp/mv/rm/mkdir
 * chown/chmod/chgrp
 * numfmt
 * pr
@@ -396,7 +450,7 @@ Who knows about ...
 # Quick quizz
 
 Who knows about ...
-* cp/mv/rm/mkdir
+* ls/cp/mv/rm/mkdir
 * chown/chmod/chgrp
 * numfmt
 * pr
@@ -409,7 +463,7 @@ Who knows about ...
 # Quick quizz
 
 Who knows about ...
-* cp/mv/rm/mkdir
+* ls/cp/mv/rm/mkdir
 * chown/chmod/chgrp
 * numfmt
 * pr
@@ -437,21 +491,43 @@ $ ln --help    | grep "  -" | wc -l
 * BSD
 * Busybox
 * Toybox (Android)
-* V lang implemen https://github.com/vlang/coreutils
+* V lang implementation https://github.com/vlang/coreutils
 * ... ??? (if you know, please sylvestre@debian.org)
 
 
 ---
 
-# Now, Rust implementation?
+# Now, this Rust implementation?
 
 * Started by Jordi Boggiano in 2013 (yeah, before Rust 1.0)
-* Found it, saw that some maintainers were still around helping
-* Started to contribute in April 2020 and quickly took over
-* Replicate the success of clang - dropped in replacement
+
+* Found it early 2020, saw that some maintainers were still around helping
+
+* Started to contribute in April 2020 for real and quickly took over
 
 ---
-# Goals?
+# Goal of this implementation?
+
+* Replicate the success of clang - dropped in replacement for GNU's
+
+* Cross platform - support Linux, Windows, MacOS, Android, FreeBSD, Fuschia, etc
+
+* Easy to test: `cargo test --features unix` and fast: `finished in 44.29s`
+
+* I don't care but the license is MIT
+
+---
+
+# But why Rust?
+
+* Secure by default for memory mgmt
+* Very portable
+* Lot of crates (Rust libraries) available
+  - Don't have to reimplement the wheel
+* Terrific performances
+* Very popular language
+---
+# My Goals
 
 * My goals have been:
   - Be able to boot Debian
@@ -460,7 +536,7 @@ $ ln --help    | grep "  -" | wc -l
   - Package it for Debian & Ubuntu
 
 ---
-# Goals?
+# My Goals
 
 For this, we had to deploy:
 * Proper CI (and therefore build system)
@@ -473,7 +549,19 @@ Took about a year to be in that state
 
 ---
 
-TODO add graph
+TODO add graph deps
+
+---
+# Current status
+
+TODO Add graph GNU and the others
+
+How to run the GNU tests
+
+---
+
+# How do we work?
+
 
 ---
 
