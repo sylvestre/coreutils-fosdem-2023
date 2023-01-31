@@ -14,16 +14,29 @@
         font-weight: normal;
       }
       .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+        font-size: 0.8em;
+      }
     </style>
   </head>
   <body>
     <textarea id="source">
 
-class: center, middle
+class: center, middle, inverse
 
 # Reimplementing the Coreutils in a modern language
 
 ## (Rust, not C++)
+
+## Sylvestre Ledru - sylvestre@debian.org
 
 ---
 
@@ -50,15 +63,13 @@ And maintainer of ripgrep, fd and some others Rust based packages in Debian/Ubun
 
 # Early 2020
 
-TODO insert image press covid
+<img src="covid-1.png" height="150"/>
+<img src="covid-2.png" height="150"/>
+<img src="covid-3.png" height="80"/>
 
 ---
-
-# Started with
-
-<img src="lego.png" />
-
----
+class: center, middle, inverse
+template: inverse
 
 # How to make the best use this time?
 
@@ -66,26 +77,33 @@ TODO insert image press covid
 
 # Some people made
 
-TODO insert image pain
+<img src="pain.jpg" height="400"/>
+.footnote[Credit Julien Danjou - April 2020]
 
 ---
 
 # Other did
 
-TODO insert image jardin
+Some gardening, wood working, etc
 
 ---
 
-Continue with
+# At home, we started with
 
-TODO insert buffy
+<img src="lego.png" />
 
 ---
 
-Continue with
+# Then
 
-TODO insert BBT
+<img src="buffy.jpg" height="400" />
+.footnote[Total: 106 hours 42 minutes]
+---
 
+# Continued with
+
+<img src="tbbt.jpg" height="400" />
+.footnote[Total: 102 hours 30 minutes]
 ---
 
 # Me?
@@ -96,8 +114,12 @@ I want to learn Rust for real with an impactful project.
 
 # Clang & Debian
 
-TODO inject image of clang.debian.net
+Back in 2012, I played with clang to rebuild the Debian archive.
+<br />
 
+<img src="rebuild-2.png" height=80 />
+<hr />
+<img src="rebuild.png" height=200 />
 
 
 ---
@@ -130,6 +152,12 @@ Too hard
 
 Way too hard
 
+
+---
+class: center, middle, inverse
+template: inverse
+
+# What about the Coreutils ?
 ---
 
 # What about the Coreutils ?
@@ -159,7 +187,55 @@ Well, it is a good question
 ---
 
 # What the point ?
-TODO - split
+
+Well, it is a good question
+
+1. Why not?
+
+---
+
+# What the point ?
+
+Well, it is a good question
+
+1. Why not?
+
+2. Rust rocks.
+
+---
+
+# What the point ?
+
+Well, it is a good question
+
+1. Why not?
+
+2. Rust rocks.
+
+3. It is NOT about security<br />
+https://security-tracker.debian.org/tracker/source-package/coreutils<br />
+Only 17 CVE in GNU/Coreutils since 2003
+
+---
+
+# What the point ?
+
+Well, it is a good question
+
+1. Why not?
+
+2. Rust rocks.
+
+3. It is NOT about security<br />
+https://security-tracker.debian.org/tracker/source-package/coreutils<br />
+Only 17 CVE in GNU/Coreutils since 2003
+
+4. It is NOT about license (for me at least).<br />
+Not interested by the MIT vs GPL debate.
+
+---
+
+# What the point ?
 
 Well, it is a good question
 
@@ -178,9 +254,9 @@ Not interested by the MIT vs GPL debate.
 
 
 ---
-
 # You keep on talking about the coreutils<br />but what is it?
 
+Let's start with a quizz?
 ---
 
 # You keep on talking about the coreutils<br />but what is it?
@@ -242,7 +318,23 @@ We can find:
 * cp.s
 * ...
 
-https://archive.softwareheritage.org/browse/origin/directory/?branch=refs/heads/Research-PDP7-Snapshot-Development&origin_url=https://github.com/dspinellis/unix-history-repo
+<a href="https://archive.softwareheritage.org/swh:1:dir:602df0b42085a30f0bdcb864063a4ad7922770d7;origin=https://github.com/dspinellis/unix-history-repo;visit=swh:1:snp:6e90639ed08c76dbf81928f565a97215b1cb56d9;anchor=swh:1:rev:16fdb215eeab60c2e7b8d624b22bdc9c0422484f">See sources on software Heritage</a>
+
+---
+
+# Side note
+
+<img src="Ken_Thompson_and_Dennis_Ritchie--1973.jpg" />
+
+Adam Gordon Bell interviewed Brian Kernighan in his podcast:<br />
+
+https://corecursive.com/brian-kernighan-unix-bell-labs1/<br />
+
+<code>he [Ken] built himself basically a working operating system in three weeks.</code>
+
+In the expression, <i>standing on the shoulders of giants</i>. They are our giants.
+
+---
 
 # 'New' version in C
 
@@ -256,6 +348,7 @@ Co-Authored-By: Dennis Ritchie <dmr@research.uucp><br />
 
 Mix of ASM (ex: ls.s, ln.s, etc) & C (cp.c, if.c, etc)
 
+<a href="https://archive.softwareheritage.org/swh:1:dir:56f474bdc8a5475a2a37221377235510e91ccc17;origin=https://github.com/dspinellis/unix-history-repo;visit=swh:1:snp:6e90639ed08c76dbf81928f565a97215b1cb56d9;anchor=swh:1:rev:57d94bd7265b0f4c07b74eeb409118de076baef4">See sources on software Heritage</a>
 ---
 
 # 'New' version in C
@@ -278,6 +371,7 @@ Example of code - CLI implementation
                 }
 ```
 
+<a href="https://archive.softwareheritage.org/swh:1:cnt:b6047836d794e43c05ee7f780d504549154ded2e;origin=https://github.com/dspinellis/unix-history-repo;visit=swh:1:snp:6e90639ed08c76dbf81928f565a97215b1cb56d9;anchor=swh:1:rev:9cad36bfa38acba86ece03c4b809d20e953057d2;path=/usr/source/s1/chmod.c">See source on software Heritage</a>
 ---
 
 # 'New' version in C
@@ -301,13 +395,14 @@ chmod()
 }
 ```
 
+<a href="https://archive.softwareheritage.org/browse/content/sha1_git:622663d75c8704c139c33a8d908cc6b01bb23db7/?branch=refs/heads/Research-V5-Snapshot-Development&origin_url=https://github.com/dspinellis/unix-history-repo&path=usr/sys/ken/sys4.c#L150">See source on software Heritage</a>
 
 ---
 
 # A simple programming language
 
 We take it for granted and rarely think about it but<br />
-pipes `|` and redirection `>` are amazing
+pipes <b>`|`</b> and redirection <b>`> <`</b> are amazing
 
 Quick example:
 How would you implement an algorithm to find the 5 most popular words in all Shakespeare books? (with 6 chars or more)
@@ -468,20 +563,27 @@ Who knows about ...
 * numfmt
 * pr
 * csplit
-* and others like piny, tsort, shuf, shred, seq, etc
+* and others like pinky, tsort, shuf, shred, seq, etc
 
 ---
 
-# Example with `cp` and other commands
+# And plenty of arguments
+
+Example with `cp` and other commands
 
 
 ```bash
 $ cp --help    | grep "  -" | wc -l
 34
+
 $ chown --help | grep "  -" | wc -l
 15
+
 $ ln --help    | grep "  -" | wc -l
 16
+
+$ ls --help    | grep "  -" | wc -l
+61
 ```
 ---
 
@@ -506,26 +608,32 @@ $ ln --help    | grep "  -" | wc -l
 * Started to contribute in April 2020 for real and quickly took over
 
 ---
+
 # Goal of this implementation?
 
 * Replicate the success of clang - dropped in replacement for GNU's
 
-* Cross platform - support Linux, Windows, MacOS, Android, FreeBSD, Fuschia, etc
+* Cross platform - support Linux, Windows, MacOS, Android, FreeBSD, Fuchsia, etc
 
 * Easy to test: `cargo test --features unix` and fast: `finished in 44.29s`
 
-* I don't care but the license is MIT
+* I don't care (ie please don't troll me) but the license is MIT
 
 ---
 
 # But why Rust?
 
 * Secure by default for memory mgmt
+
 * Very portable
+
 * Lot of crates (Rust libraries) available
   - Don't have to reimplement the wheel
+
 * Terrific performances
-* Very popular language
+
+* Very popular language (easy to find new contributors)
+
 ---
 # My Goals
 
@@ -571,7 +679,9 @@ It is mostly a wrapper on top of the libc
 
 
 ---
-
+Summary
+  'target/release/coreutils sort shuffled_wordlist.txt -f -o output.txt' ran
+    6.40 Â± 0.73 times faster than 'sort shuffled_wordlist.txt -f -o output.txt'
 
 
 ---
