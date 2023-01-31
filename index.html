@@ -404,17 +404,20 @@ chmod()
 We take it for granted and rarely think about it but<br />
 pipes <b>`|`</b> and redirection <b>`> <`</b> are amazing
 
-Quick example:
+Quick example:<br />
+
 How would you implement an algorithm to find the 5 most popular words in all Shakespeare books? (with 6 chars or more)
 
 ---
 
 # A simple programming language
 
-We take it for granted and rarely think about it but<br />
-pipes `|` and redirection `>` are amazing
 
-Quick example:
+We take it for granted and rarely think about it but<br />
+pipes <b>`|`</b> and redirection <b>`> <`</b> are amazing
+
+Quick example:<br />
+
 How would you implement an algorithm to find the 5 most popular words in all Shakespeare books? (with 6 chars or more)
 
 ```
@@ -448,6 +451,12 @@ By the way, the results:
 ```
 
 ---
+class: center, middle, inverse
+template: inverse
+
+# Fast forward to 2023
+
+---
 
 # Fast forward to 2023
 
@@ -472,6 +481,27 @@ csplit    fmt        mkdir     pr       sort      truncate
 ```
 
 Note: grep, find, less, top or watch are NOT part of the coreutils.
+
+---
+
+# And plenty of arguments
+
+Example with `cp` and other commands
+
+
+```bash
+$ cp --help    | grep "  -" | wc -l
+34
+
+$ chown --help | grep "  -" | wc -l
+15
+
+$ ln --help    | grep "  -" | wc -l
+16
+
+$ ls --help    | grep "  -" | wc -l
+61
+```
 
 ---
 # Quick quizz
@@ -564,36 +594,20 @@ Who knows about ...
 * pr
 * csplit
 * and others like pinky, tsort, shuf, shred, seq, etc
-
----
-
-# And plenty of arguments
-
-Example with `cp` and other commands
-
-
-```bash
-$ cp --help    | grep "  -" | wc -l
-34
-
-$ chown --help | grep "  -" | wc -l
-15
-
-$ ln --help    | grep "  -" | wc -l
-16
-
-$ ls --help    | grep "  -" | wc -l
-61
-```
 ---
 
 # A bunch of different implementations
 
 * GNU's coreutils
+
 * BSD
+
 * Busybox
+
 * Toybox (Android)
+
 * V lang implementation https://github.com/vlang/coreutils
+
 * ... ??? (if you know, please sylvestre@debian.org)
 
 
@@ -606,6 +620,10 @@ $ ls --help    | grep "  -" | wc -l
 * Found it early 2020, saw that some maintainers were still around helping
 
 * Started to contribute in April 2020 for real and quickly took over
+
+<img src="github-stats.png" />
+
+<img src="github-stats-2.png"  height=200 />
 
 ---
 
@@ -664,11 +682,16 @@ TODO add graph deps
 
 TODO Add graph GNU and the others
 
-How to run the GNU tests
-
 ---
 
 # How do we work?
+
+Our goals are pretty simple: dropped in replacement
+
+How to run the GNU tests
+
+---
+Exemple of a debugging
 
 
 ---
@@ -686,12 +709,51 @@ Summary
 
 ---
 
-
 # What is next?
 
 * Implement missing options
 * Complete the full compatibility with the GNU tools
 * Improve performances on some key programs
+
+---
+
+# How can I help?
+
+* We have good first bugs<br />
+  As I probably said, it is a great way to learn Rust
+
+* If you work for a company, don't hesitate to sponsor this project for the CI
+
+
+---
+class: center, middle, inverse
+template: inverse
+
+# Let's do some predictions
+
+---
+
+# What about the Linux Kernel?
+
+Merged in the main branch:
+```
+$ ohcount git@github.com:torvalds/linux.git
+
+Language          Files       Code    Comment  Comment %      Blank      Total
+----------------  -----  ---------  ---------  ---------  ---------  ---------
+c                 55128   23468316    3757486      13.8%    3915921   31141723
+[...]
+rust                 37       5451       5439      49.9%        936      11826
+```
+---
+
+# In 2023/2024
+
+We will start to see cloud provider proposing images with Rust core
+components.
+
+We will see more and more piece of the core infrastructure of Linux improved
+with Rust.
 
 
 ---
