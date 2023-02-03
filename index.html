@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Reimplementing the Coreutils in a modern language</title>
+  <link rel="stylesheet" type="text/css" href="asciinema-player.css" />
+  <title>Reimplementing the Coreutils in a modern language</title>
     <meta charset="utf-8">
     <style>
       @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
@@ -28,6 +29,8 @@
     </style>
   </head>
   <body>
+      <script src="asciinema-player.min.js"></script>
+
     <textarea id="source">
 
 class: center, middle, inverse
@@ -745,17 +748,25 @@ Now:
 
 ---
 # My Goals
-TODO split
+
 
 * My intial goals were:
+
   - Be able to boot Debian
 
+
+--
   - Install the top 1000 packages
 
+
+--
   - Build Firefox, LLVM and the Linux Kernel
 
+
+--
   - Package it for Debian & Ubuntu
 
+--
 * Published some <a href="https://sylvestre.ledru.info/blog/2021/03/09/debian-running-on-rust-coreutils">blog</a> <a href="https://sylvestre.ledru.info/blog/2022/01/29/an-update-on-rust-coreutils">posts</a> about it
 
 
@@ -768,15 +779,27 @@ TODO split
 
 To achieve, we had to deploy:
 
+--
+
 * Proper CI (and therefore build system) for all supported platforms
+
+--
 
 * Add code coverage support
 
+--
+
 * Improve the code coverage results (ie write plenty of tests)
+
+--
 
 * Plug clippy and rustfmt
 
+--
+
 * Document the various processes
+
+--
 
 Took about a year to be in that state
 
@@ -947,6 +970,19 @@ Summary
 ```
 1.43 times faster than GNU's
 
+
+Similar result for cp -R
+
+<!--
+```
+$ hyperfine "rm -rf /tmp/coreutils.git; ./target/release/cp -r ../coreutils.git /tmp" "rm -rf /tmp/coreutils.git; /usr/bin/cp -r ../coreutils.git /tmp"
+
+Summary
+  'rm -rf /tmp/coreutils.git; ./target/release/cp -r ../coreutils.git /tmp' ran
+    1.47 Â± 0.34 times faster than 'rm -rf /tmp/coreutils.git; /usr/bin/cp -r ../coreutils.git /tmp'
+```
+-->
+
 ---
 # Performance
 
@@ -964,7 +1000,7 @@ $ hyperfine "seq 18446744073708551615 18446744073709551615 | factor" \
     5.08 ± 0.01 times faster than './target/release/coreutils seq 18446744073708551615 18446744073709551615| ./target/release/coreutils factor'
 
 ```
---
+---
 
 TODO regarder si je trouve des exemples intéressants de conflit comportement
 
@@ -975,17 +1011,37 @@ TODO regarder si je trouve des exemples intéressants de conflit comportement
 Demo time!
 
 
+---
+# Extending the coreutils
+
+We have a beautiful doc:
+
+https://uutils.github.io/user/
+
+with example provided by https://tldr.sh/
 
 ---
 # Extending the coreutils
 
-We have a beautiful doc.
-
-We took the liberty to add extra features like the progress bars for cp & mv.
 
 
+We took the liberty to add extra features like:
 
-TODO link + demo
+* progress bars for cp & mv
+
+  <div id="player"></div>
+  <script>
+    AsciinemaPlayer.create(
+      '557248.cast',
+      document.getElementById('player'),
+      { cols: 73, rows: 22 }
+    );
+  </script>
+
+* b3sum (works like b2sum)
+
+* cut `-w` from FreeBSD - <i>separate fields by whitespace (Space and Tab)</i>
+
 
 ---
 
@@ -1063,6 +1119,7 @@ template: inverse
 
     </textarea>
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+
     </script>
     <script>
 //      var slideshow = remark.create();
