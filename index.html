@@ -34,9 +34,11 @@ class: center, middle, inverse
 
 # Reimplementing the Coreutils in a modern language
 
-## (Rust, not C++)
+## (Spoiler: Rust, not C++)
 
 ## Sylvestre Ledru - sylvestre@debian.org
+
+## FOSDEM - BXL - Sunday 5th Feb 2023
 
 ---
 
@@ -88,7 +90,7 @@ Some gardening, wood working, etc
 
 ---
 
-# At home, we started with
+# At first, we started with
 
 <img src="lego.png" />
 
@@ -621,19 +623,21 @@ Who knows about ...
 
 * Started to contribute in April 2020 for real and quickly took over
 
+Now:
+
 <img src="github-stats.png" />
 
 <img src="github-stats-2.png"  height=200 />
 
 ---
 
-# But why Rust?
+# But why it makes sense to use Rust?
 
 * Secure by default for memory mgmt
 
 ---
 
-# But why Rust?
+# But why it makes sense to use Rust?
 
 * Secure by default for memory mgmt
 
@@ -641,7 +645,7 @@ Who knows about ...
 
 ---
 
-# But why Rust?
+# But why it makes sense to use Rust?
 
 * Secure by default for memory mgmt
 
@@ -656,7 +660,7 @@ Who knows about ...
 
 ---
 
-# But why Rust?
+# But why it makes sense to use Rust?
 
 * Secure by default for memory mgmt
 
@@ -673,7 +677,7 @@ Who knows about ...
 
 ---
 
-# But why Rust?
+# But why it makes sense to use Rust?
 
 * Secure by default for memory mgmt
 
@@ -712,7 +716,7 @@ Who knows about ...
 
 * Cross platform - support Linux, Windows, MacOS, Android, FreeBSD, Fuchsia, etc
 
-* Easy to test: `cargo test --features unix` and fast: `finished in 44.29s`
+* Easy to test: <b>`cargo test --features unix`</b> and fast: <b>`finished in 44.29s`</b>
 ---
 
 # Goal of this implementation?
@@ -721,7 +725,7 @@ Who knows about ...
 
 * Cross platform - support Linux, Windows, MacOS, Android, FreeBSD, Fuchsia, etc
 
-* Easy to test: `cargo test --features unix` and fast: `finished in 44.29s`
+* Easy to test: <b>`cargo test --features unix`</b> and fast: <b>`finished in 44.29s`</b>
 
 * I don't care (ie please don't troll me) but the license is MIT
 
@@ -733,27 +737,17 @@ Who knows about ...
 
 * Cross platform - support Linux, Windows, MacOS, Android, FreeBSD, Fuchsia, etc
 
-* Easy to test: `cargo test --features unix` and fast: `finished in 44.29s`
+* Easy to test: <b>`cargo test --features unix`</b> and fast: <b>`finished in 44.29s`</b>
 
 * I don't care (ie please don't troll me) but the license is MIT
 
-* It isn't about hating the GNU project
----
-
-# Goal of this implementation?
-
-* Replicate the success of clang - dropped in replacement for GNU's
-
-* Cross platform - support Linux, Windows, MacOS, Android, FreeBSD, Fuchsia, etc
-
-* Easy to test: `cargo test --features unix` and fast: `finished in 44.29s`
-
-* I don't care (ie please don't troll me) but the license is MIT
+* It isn't about fighting the GNU project or the FSF
 
 ---
 # My Goals
+TODO split
 
-* My goals have been:
+* My intial goals were:
   - Be able to boot Debian
 
   - Install the top 1000 packages
@@ -770,10 +764,11 @@ TLDR: it works
 ---
 # My Goals (bis)
 
+TODO split
+
 To achieve, we had to deploy:
 
 * Proper CI (and therefore build system) for all supported platforms
-
 
 * Add code coverage support
 
@@ -781,8 +776,15 @@ To achieve, we had to deploy:
 
 * Plug clippy and rustfmt
 
+* Document the various processes
 
 Took about a year to be in that state
+
+---
+class: center, middle, inverse
+template: inverse
+
+# Current status
 
 ---
 # Current status
@@ -841,7 +843,13 @@ $ ./target/debug/mkdir -p -v a/../b/../c
 ```
 .footnote[https://github.com/uutils/coreutils/pull/3217]
 ---
+# Example of a corner case
+```bash
+$ install /dev/null $(mktemp)
+```
+Used in <a href="https://salsa.debian.org/apparmor-team/apparmor/-/blob/debian/unstable/debian/debhelper/postinst-apparmor#L9">Apparmor debian helper</a>
 
+---
 # Corner cases for Rust stdlib
 
 ```rust
@@ -856,6 +864,11 @@ fn main() {
         }
     }
 }
+```
+
+Fails with:
+```
+the source path is not an existing regular file
 ```
 
 .footnote[https://github.com/rust-lang/rust/issues/79390]
@@ -878,17 +891,7 @@ if from.as_os_str() == "/dev/null" {
 }
 ```
 
-```bash
-$ install /dev/null $(mktemp)
-```
-Used in <a href="https://salsa.debian.org/apparmor-team/apparmor/-/blob/debian/unstable/debian/debhelper/postinst-apparmor#L9">Apparmor debian helper</a>
 .footnote[https://github.com/uutils/coreutils/blob/a75cfd96555f44198b5410f65ec501f89cc6ef30/src/uu/install/src/install.rs#L672-L683]
----
-
-# Exemple of a debugging
-
-Demo ?
-
 ---
 
 # Let's try together
@@ -896,6 +899,11 @@ Demo ?
 
 Demo time!
 
+---
+class: center, middle, inverse
+template: inverse
+
+# Performances ?
 ---
 
 # Performance
@@ -956,11 +964,26 @@ $ hyperfine "seq 18446744073708551615 18446744073709551615 | factor" \
     5.08 ± 0.01 times faster than './target/release/coreutils seq 18446744073708551615 18446744073709551615| ./target/release/coreutils factor'
 
 ```
+--
+
+TODO regarder si je trouve des exemples intéressants de conflit comportement
 
 ---
-# Extensions
 
-We took the liberty to add extra features
+# Benchmarking
+
+Demo time!
+
+
+
+---
+# Extending the coreutils
+
+We have a beautiful doc.
+
+We took the liberty to add extra features like the progress bars for cp & mv.
+
+
 
 TODO link + demo
 
@@ -968,8 +991,12 @@ TODO link + demo
 
 # What is next?
 
+TODO split
+
 * Implement missing options
+
 * Complete the full compatibility with the GNU tools
+
 * Improve performances on some key programs
 
 ---
@@ -979,7 +1006,7 @@ TODO link + demo
 * We have good first bugs<br />
   As I probably said, it is a great way to learn Rust
 
-* If you work for a company, don't hesitate to sponsor this project for the CI
+* Would appreciate corporate/foundation sponsors for the CI
 
 
 ---
@@ -1002,6 +1029,10 @@ c                 55128   23468316    3757486      13.8%    3915921   31141723
 [...]
 rust                 37       5451       5439      49.9%        936      11826
 ```
+
+For now, in the main branch, mostly build + glue code.
+
+
 ---
 
 # In 2023/2024
@@ -1015,7 +1046,20 @@ with Rust.
 
 ---
 
-# Introduction
+class: center, middle, inverse
+template: inverse
+
+# Thanks for your time
+
+---
+
+class: center, middle, inverse
+template: inverse
+
+# Any questions?
+
+---
+
 
     </textarea>
     <script src="https://remarkjs.com/downloads/remark-latest.min.js">
