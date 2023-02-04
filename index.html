@@ -172,13 +172,7 @@ I have always been curious to see how it works.
 
 Even if I am terrible with ASM...
 
----
-
-# What about the Coreutils ?
-
-I have always been curious to see how it works.
-
-Even if I am terrible with ASM...
+--
 
 ## Good news
 
@@ -196,65 +190,26 @@ Well, it is a good question
 
 Well, it is a good question
 
-1. Why not?
-
----
-
-# What the point ?
-
-Well, it is a good question
+--
 
 1. Why not?
+
+--
 
 2. Rust rocks.
 
----
-
-# What the point ?
-
-Well, it is a good question
-
-1. Why not?
-
-2. Rust rocks.
+--
 
 3. It is NOT about security<br />
 https://security-tracker.debian.org/tracker/source-package/coreutils<br />
 Only 17 CVE in GNU/Coreutils since 2003
 
----
-
-# What the point ?
-
-Well, it is a good question
-
-1. Why not?
-
-2. Rust rocks.
-
-3. It is NOT about security<br />
-https://security-tracker.debian.org/tracker/source-package/coreutils<br />
-Only 17 CVE in GNU/Coreutils since 2003
+--
 
 4. It is NOT about license (for me at least).<br />
 Not interested by the MIT vs GPL debate.
 
----
-
-# What the point ?
-
-Well, it is a good question
-
-1. Why not?
-
-2. Rust rocks.
-
-3. It is NOT about security<br />
-https://security-tracker.debian.org/tracker/source-package/coreutils<br />
-Only 17 CVE in GNU/Coreutils since 2003
-
-4. It is NOT about license (for me at least).<br />
-Not interested by the MIT vs GPL debate.
+--
 
 5. It is very interesting.
 
@@ -267,46 +222,23 @@ Let's start with a quizz?
 
 # You keep on talking about the coreutils<br />but what is it?
 
-Who was born after 2000 ?
-
----
-
-# You keep on talking about the coreutils<br />but what is it?
+--
 
 Who was born after 2000 ?
+
+--
 
 Who was born after 1990 ?
----
 
-# You keep on talking about the coreutils<br />but what is it?
-
-Who was born after 2000 ?
-
-Who was born after 1990 ?
+--
 
 Who was born after 1980 ?
----
 
-# You keep on talking about the coreutils<br />but what is it?
-
-Who was born after 2000 ?
-
-Who was born after 1990 ?
-
-Who was born after 1980 ?
+--
 
 Who was born after 1971 ?
----
 
-# You keep on talking about the coreutils<br />but what is it?
-
-Who was born after 2000 ?
-
-Who was born after 1990 ?
-
-Who was born after 1980 ?
-
-Who was born after 1971 ?
+--
 
 <b>Congratulations, you are younger than the initial implementation</b>
 
@@ -408,43 +340,19 @@ chmod()
 # A simple programming language
 
 We take it for granted and rarely think about it but<br />
-pipes <b>`|`</b> and redirection <b> `> <` </b> are amazing
-
-Quick example:<br />
-
-How would you implement an algorithm to find the 5 most popular words in all Shakespeare books? (with 6 chars or more)
-
----
-
-# A simple programming language
-
-We take it for granted and rarely think about it but<br />
-pipes <b>`|`</b> and redirection <b> `> <` </b> are amazing
-
-Quick example:<br />
-
-How would you implement an algorithm to find the 5 most popular words in all Shakespeare books? (with 6 chars or more)
-
-```
-$ tr -cs A-Za-z '\n' < shakespeare.txt | tr A-Z a-z | grep -E '^.{6,}$' | sort |
-uniq -c | sort -rn | head -n 5
-```
-
-
----
-
-# A simple programming language
-
-We take it for granted and rarely think about it but<br />
 pipes `|` and redirection `>` are amazing
 
 Quick example:
 How would you implement an algorithm to find the 5 most popular words in all Shakespeare books? (with 6 chars or more)
 
+--
+
 ```
 $ tr -cs A-Za-z '\n' < shakespeare.txt | tr A-Z a-z | grep -E '^.{6,}$' | sort |
 uniq -c | sort -rn | head -n 5
 ```
+
+--
 
 By the way, the results:
 ```
@@ -512,33 +420,14 @@ $ ls --help    | grep "  -" | wc -l
 # Quick quizz
 
 Who knows about ...
----
-# Quick quizz
 
-Who knows about ...
-
+--
 * ls/cp/mv/rm/mkdir
----
-# Quick quizz
 
-Who knows about ...
-* ls/cp/mv/rm/mkdir
+--
 * chown/chmod/chgrp
 
----
-# Quick quizz
-
-Who knows about ...
-* ls/cp/mv/rm/mkdir
-* chown/chmod/chgrp
-* numfmt
-
----
-# Quick quizz
-
-Who knows about ...
-* ls/cp/mv/rm/mkdir
-* chown/chmod/chgrp
+--
 * numfmt
 ```bash
   echo 1.18GB|coreutils  numfmt --from=si --suffix=B
@@ -554,14 +443,7 @@ Who knows about ...
 * numfmt
 * pr
 
----
-# Quick quizz
-
-Who knows about ...
-* ls/cp/mv/rm/mkdir
-* chown/chmod/chgrp
-* numfmt
-* pr
+--
 ```
   convert text files for printing
 ```
@@ -574,17 +456,11 @@ Who knows about ...
 * chown/chmod/chgrp
 * numfmt
 * pr
+
+--
 * csplit
 
----
-# Quick quizz
-
-Who knows about ...
-* ls/cp/mv/rm/mkdir
-* chown/chmod/chgrp
-* numfmt
-* pr
-* csplit
+--
 ```
   split a file into sections determined by context lines
 ```
@@ -638,21 +514,11 @@ Now:
 
 * Secure by default for memory mgmt
 
----
-
-# But why it makes sense to use Rust?
-
-* Secure by default for memory mgmt
+--
 
 * Very portable
 
----
-
-# But why it makes sense to use Rust?
-
-* Secure by default for memory mgmt
-
-* Very portable
+--
 
 * Lot of crates (Rust libraries) available - Don't have to reimplement the wheel:
   - lscolors - provides the same colors as ls
@@ -661,39 +527,11 @@ Now:
   - teminal_size - to know how to display information
   - ...
 
----
-
-# But why it makes sense to use Rust?
-
-* Secure by default for memory mgmt
-
-* Very portable
-
-* Lot of crates (Rust libraries) available - Don't have to reimplement the wheel:
-  - lscolors - provides the same colors as ls
-  - walkdir - recursive operations on the fs (cp, rm, etc)
-  - tempfile - generate some temporary files/dirs (mktemp, etc)
-  - teminal_size - to know how to display information
-  - ...
+--
 
 * Terrific performances (more later)
 
----
-
-# But why it makes sense to use Rust?
-
-* Secure by default for memory mgmt
-
-* Very portable
-
-* Lot of crates (Rust libraries) available - Don't have to reimplement the wheel:
-  - lscolors - provides the same colors as ls
-  - walkdir - recursive operations on the fs (cp, rm, etc)
-  - tempfile - generate some temporary files/dirs (mktemp, etc)
-  - teminal_size - to know how to display information
-  - ...
-
-* Terrific performances (more later)
+--
 
 * Very popular language (easy to find new contributors)
 
@@ -703,46 +541,19 @@ Now:
 
 * Replicate the success of clang - dropped in replacement for GNU's
 
----
-
-# Goal of this implementation?
-
-* Replicate the success of clang - dropped in replacement for GNU's
+--
 
 * Cross platform - support Linux, Windows, MacOS, Android, FreeBSD, Fuchsia, etc
 
----
-
-# Goal of this implementation?
-
-* Replicate the success of clang - dropped in replacement for GNU's
-
-* Cross platform - support Linux, Windows, MacOS, Android, FreeBSD, Fuchsia, etc
+--
 
 * Easy to test: <b>`cargo test --features unix`</b> and fast: <b>`finished in 44.29s`</b>
----
 
-# Goal of this implementation?
-
-* Replicate the success of clang - dropped in replacement for GNU's
-
-* Cross platform - support Linux, Windows, MacOS, Android, FreeBSD, Fuchsia, etc
-
-* Easy to test: <b>`cargo test --features unix`</b> and fast: <b>`finished in 44.29s`</b>
+--
 
 * I don't care (ie please don't troll me) but the license is MIT
 
----
-
-# Goal of this implementation?
-
-* Replicate the success of clang - dropped in replacement for GNU's
-
-* Cross platform - support Linux, Windows, MacOS, Android, FreeBSD, Fuchsia, etc
-
-* Easy to test: <b>`cargo test --features unix`</b> and fast: <b>`finished in 44.29s`</b>
-
-* I don't care (ie please don't troll me) but the license is MIT
+--
 
 * It isn't about fighting the GNU project or the FSF
 
@@ -774,8 +585,6 @@ TLDR: it works
 
 ---
 # My Goals (bis)
-
-TODO split
 
 To achieve, we had to deploy:
 
@@ -859,6 +668,9 @@ mkdir: created directory 'a'
 mkdir: created directory 'a/../b'
 mkdir: created directory 'a/../b/../c'
 ```
+
+--
+
 and we had
 ```bash
 $ ./target/debug/mkdir -p -v a/../b/../c
@@ -936,6 +748,8 @@ Disclaimer: benchmarking performances is HARD
 
 Some binaries are significantly faster.
 
+--
+
 Example #1:
 ```
 $ hyperfine -r 10 \
@@ -970,6 +784,7 @@ Summary
 ```
 1.43 times faster than GNU's
 
+--
 
 Similar result for cp -R
 
@@ -979,7 +794,7 @@ $ hyperfine "rm -rf /tmp/coreutils.git; ./target/release/cp -r ../coreutils.git 
 
 Summary
   'rm -rf /tmp/coreutils.git; ./target/release/cp -r ../coreutils.git /tmp' ran
-    1.47 Â± 0.34 times faster than 'rm -rf /tmp/coreutils.git; /usr/bin/cp -r ../coreutils.git /tmp'
+    1.47 ± 0.34 times faster than 'rm -rf /tmp/coreutils.git; /usr/bin/cp -r ../coreutils.git /tmp'
 ```
 -->
 
@@ -1047,11 +862,13 @@ We took the liberty to add extra features like:
 
 # What is next?
 
-TODO split
-
 * Implement missing options
 
+--
+
 * Complete the full compatibility with the GNU tools
+
+--
 
 * Improve performances on some key programs
 
@@ -1061,6 +878,8 @@ TODO split
 
 * We have good first bugs<br />
   As I probably said, it is a great way to learn Rust
+
+--
 
 * Would appreciate corporate/foundation sponsors for the CI
 
@@ -1113,8 +932,6 @@ class: center, middle, inverse
 template: inverse
 
 # Any questions?
-
----
 
 
     </textarea>
