@@ -1,0 +1,29 @@
+bash util/run-gnu-test.sh tests/misc/sort-version.sh 
+
+/usr/bin/sort --version
+sort --version
+which sort
+
+
+
+echo "string start 5.4.0 end of str
+string start 5.04.0 end of str" > test.txt
+
+GNU:
+/usr/bin/sort --stable --sort=version test.txt > test.out
+diff -u test.txt test.out  
+
+./target/debug/coreutils sort --stable --sort=version test.txt > test.out 
+diff -u test.txt test.out  
+
+gdb --args target/debug/coreutils sort --stable --sort=version test.txt
+
+b version_cmp
+
+nano +128 src/uucore/src/lib/mods/version_cmp.rs  
+
+ cargo test --features=unix  test_ls_version_sort  
+
+./target/debug/coreutils cp -R --progress ../coreutils /tmp 
+
+
