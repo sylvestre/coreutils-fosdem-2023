@@ -69,7 +69,13 @@ And maintainer of ripgrep, fd and some others Rust based packages in Debian/Ubun
 # Early 2020
 
 <img src="covid-1.png" height="150"/>
+
+<hr />
+
 <img src="covid-2.png" height="150"/>
+
+<hr />
+
 <img src="covid-3.png" height="80"/>
 
 ---
@@ -91,6 +97,9 @@ template: inverse
 
 Some gardening, wood working, etc
 
+<img src="bois-serge.jpg" height="400" />
+
+.footnote[Credit Serge Guelton]
 ---
 
 # At first, we started with
@@ -502,11 +511,29 @@ Who knows about ...
 
 * Started to contribute in April 2020 for real and quickly took over
 
-Now:
+---
+
+# Some stats now
 
 <img src="github-stats.png" />
 
 <img src="github-stats-2.png"  height=200 />
+
+The second contributor doing amazing work is in this room too.
+
+---
+
+# Status
+
+* Packaged in most of the linux distros
+
+--
+
+* Used by Apertis
+
+--
+
+* Used by a famous social network via the Yocto project
 
 ---
 
@@ -581,7 +608,9 @@ Now:
 * Published some <a href="https://sylvestre.ledru.info/blog/2021/03/09/debian-running-on-rust-coreutils">blog</a> <a href="https://sylvestre.ledru.info/blog/2022/01/29/an-update-on-rust-coreutils">posts</a> about it
 
 
-TLDR: it works
+TLDR: it works.
+
+This presentation is done a Debian testing with Firefox running the Rust/coreutils
 
 ---
 # My Goals (bis)
@@ -598,7 +627,8 @@ To achieve, we had to deploy:
 
 --
 
-* Improve the code coverage results (ie write plenty of tests)
+* Improve the code coverage results (ie write plenty of tests)<br />
+  Currently <b>80.62%</b>
 
 --
 
@@ -817,13 +847,12 @@ $ hyperfine "seq 18446744073708551615 18446744073709551615 | factor" \
 ```
 ---
 
-TODO regarder si je trouve des exemples intéressants de conflit comportement
-
----
 
 # Benchmarking
 
 Demo time!
+
+With some product placement ;)
 
 
 ---
@@ -835,6 +864,14 @@ https://uutils.github.io/user/
 
 with example provided by https://tldr.sh/
 
+
+<br />
+And a good developer doc:
+https://uutils.github.io/dev
+
+Example:
+<a href="https://uutils.github.io/dev/uucore/backup_control/index.html">Example with backup control</a>
+
 ---
 # Extending the coreutils
 
@@ -844,25 +881,19 @@ We took the liberty to add extra features like:
 
 * progress bars for cp & mv
 
-  <div id="player"></div>
-  <script>
-    AsciinemaPlayer.create(
-      '557248.cast',
-      document.getElementById('player'),
-      { cols: 73, rows: 22 }
-    );
-  </script>
+--
 
 * b3sum (works like b2sum)
 
-* cut `-w` from FreeBSD - <i>separate fields by whitespace (Space and Tab)</i>
+--
 
+* cut `-w` from FreeBSD - <i>separate fields by whitespace (Space and Tab)</i>
 
 ---
 
 # What is next?
 
-* Implement missing options
+* Implement missing options in the various binaries
 
 --
 
@@ -878,6 +909,10 @@ We took the liberty to add extra features like:
 
 * We have good first bugs<br />
   As I probably said, it is a great way to learn Rust
+
+--
+
+* We will apply to the Google summer of code 2023
 
 --
 
@@ -905,12 +940,13 @@ c                 55128   23468316    3757486      13.8%    3915921   31141723
 rust                 37       5451       5439      49.9%        936      11826
 ```
 
-For now, in the main branch, mostly build + glue code.
+For now, in the main branch, build + glue code.
 
+Still waiting for an user-visible feature written in Rust.c
 
 ---
 
-# In 2023/2024
+# In 2024
 
 We will start to see cloud provider proposing images with Rust core
 components.
