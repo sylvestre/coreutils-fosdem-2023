@@ -1,0 +1,141 @@
+1) fuzz more part with fuzz date
+
+Format::Rfc3339(fmt)
+Format::Iso8601(fmt)
+
+https://github.com/uutils/coreutils/discussions/4507
+
+FUZZER=fuzz_date
+DURATION=
+cd fuzz
+cargo +nightly fuzz run $FUZZER -- -max_total_time=2 -detect_leaks=0
+cargo +nightly fuzz coverage $FUZZER -- -max_total_time=2 -detect_leaks=0
+cd ..
+grcov . -s . --binary-path fuzz/target fuzz/coverage/$FUZZER -t html -o cov-$FUZZER
+firefox cov-$FUZZER/index.html
+
+2) replace
+src/uucore/src/lib/mods/version_cmp.rs
+by
+https://crates.io/crates/version-compare
+
+3)  bash util/run-gnu-test.sh  tests/chmod/usage.sh
+chmod
+
+chmod -w -w -- f
+works
+./target/debug/coreutils chmod -w -w -- f
+fails
+
+chmod -w -w f
+./target/debug/coreutils chmod -w -w f
+
+
+chmod f -w
+./target/debug/coreutils chmod f -w
+
+
+4)  bash util/run-gnu-test.sh  tests/df/df-symlink.sh
+df
+
+export C=./target/debug/coreutils
+export LANG=C
+
+disk=$(df --out=source '.' | tail -n1)
+rm -f symlink
+$C ln -s "$disk" symlink
+
+$C df --out=source,target "$disk" > exp
+
+
+if test "$(df --output=source | grep -F "$disk" | wc -l)" = 1; then
+df --out=source,target '.' > out || fail=1
+diff -u exp out
+fi
+
+5) touch - tests/touch/relative.sh
+
+touch g
+touch --ref g --date='-5 days' f
+error: The argument '--reference <FILE>' cannot be used with '--date <STRING>'
+
+
+6) fuzz src/uu/touch/src/touch.rs parse_date
+
+
+7) tests/touch/obsolescent.sh
+#export C="./target/debug/coreutils "
+export C=/usr/bin/
+fail=0
+yearstart=01010000
+
+_POSIX2_VERSION=199209; export _POSIX2_VERSION
+#POSIXLY_CORRECT=1; export POSIXLY_CORRECT
+rm -f $yearstart 11111111
+
+${C}touch $yearstart 11111111
+${C}test -f 11111111 || fail=1
+${C}test -f $yearstart && fail=1
+echo "Should be O="
+echo $fail
+
+8) tests/du/threshold.sh
+du --threshold=-0 a
+./target/debug/coreutils du --threshold=-0 a
+
+and other errors
+
+
+9) tests/misc/b2sum.sh
+
+b2sum -l is missing
+b2sum -l 0 /dev/null
+b2sum -l 128 /dev/null
+
+10) tests/misc/md5sum-bsd.sh
+
+for i in 'a' ' b' '*c' 'dd' ' '; do
+  echo "$i" > "$i"
+  md5sum "$i" >> check.md5sum
+done
+sed 's/  / /' check.md5sum > check.md5
+
+md5sum --strict -c check.md5
+echo $?
+./target/debug/coreutils md5sum --strict -c check.md5
+echo $?
+
+
+11) tests/misc/md5sum-newline.pl
+touch a
+md5sum --zero a 
+./target/debug/coreutils md5sum --zero  a
+
+12) tests/mkdir/perm.sh
+
+export C=target/debug/coreutils
+rm -rf parent
+umask 022
+$C mkdir -m =,u=rwx parent
+$C mkdir  -m o-w parent/sub
+stat --printf %A parent/sub
+
+drwxr-xr-x%
+or
+drwxrwxr-x%
+
+
+13)
+tests/mv/force.sh
+export C=./target/debug/coreutils
+rm mvforce2
+
+echo force-contents > mvforce
+ln mvforce mvforce2
+$C mv mvforce mvforce2
+
+14) touch f
+chown -v --from=42 43 f
+ownership of 'f' retained as sylvestre
+./target/debug/coreutils chown -v --from=42 43 f
+nothing
