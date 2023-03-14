@@ -41,7 +41,7 @@ class: center, middle, inverse
 
 ## Sylvestre Ledru - sylvestre@debian.org
 
-## FOSDEM - BXL - Sunday 5th Feb 2023
+## Télécom Paris - far away from Paris<br />Thursday 16th March 2023
 
 ---
 
@@ -125,50 +125,6 @@ Some gardening, wood working, etc
 I want to learn Rust for real with an impactful project.
 
 ---
-
-# Clang & Debian
-
-Back in 2012, I played with clang to rebuild the Debian archive.
-<br />
-
-<img src="rebuild-2.png" height=80 />
-<hr />
-<img src="rebuild.png" height=200 />
-
-<a href="https://clang.debian.net/">https://clang.debian.net/</a>
-
----
-
-# Rust ?
-
-How can I replicate something similar with Rust?
-
----
-
-# Rust ?
-
-How can I replicate something similar with Rust?
-
-## glibc ?
-
-Too hard
-
----
-
-# Rust ?
-
-How can I replicate something similar with Rust?
-
-## glibc ?
-
-Too hard
-
-## Linux kernel, clang, llvm ?
-
-Way too hard
-
-
----
 class: center, middle, inverse
 template: inverse
 
@@ -179,21 +135,9 @@ template: inverse
 
 I have always been curious to see how it works.
 
-Even if I am terrible with ASM...
-
---
-
-## Good news
-
-There is almost no ASM in the GNU/coreutils (besides a few lines in src/longlong.h).
 
 ---
 
-# What the point ?
-
-Well, it is a good question
-
----
 
 # What the point ?
 
@@ -221,35 +165,6 @@ Not interested by the MIT vs GPL debate.
 --
 
 5. It is very interesting.
-
-
----
-# You keep on talking about the coreutils<br />but what is it?
-
-Let's start with a quizz?
----
-
-# You keep on talking about the coreutils<br />but what is it?
-
---
-
-Who was born after 2000 ?
-
---
-
-Who was born after 1990 ?
-
---
-
-Who was born after 1980 ?
-
---
-
-Who was born after 1971 ?
-
---
-
-<b>Congratulations, you are younger than the initial implementation</b>
 
 ---
 
@@ -498,6 +413,8 @@ Who knows about ...
 
 * V lang implementation https://github.com/vlang/coreutils
 
+* SerenityOS
+
 * ... ??? (if you know, please sylvestre@debian.org)
 
 
@@ -515,17 +432,15 @@ Who knows about ...
 
 # Some stats now
 
-<img src="github-stats.png" />
+<img src="github-stats.png"   height=50 />
 
 <img src="github-stats-2.png"  height=200 />
-
-The second contributor doing amazing work is in this room too.
 
 ---
 
 # Status
 
-* Packaged in most of the linux distros
+* Packaged in most of the <a href="https://uutils.github.io/user/installation.html">linux distros</a>
 
 --
 
@@ -547,20 +462,25 @@ The second contributor doing amazing work is in this room too.
 
 --
 
-* Lot of crates (Rust libraries) available - Don't have to reimplement the wheel:
-  - lscolors - provides the same colors as ls
-  - walkdir - recursive operations on the fs (cp, rm, etc)
-  - tempfile - generate some temporary files/dirs (mktemp, etc)
-  - teminal_size - to know how to display information
-  - ...
-
---
-
 * Terrific performances (more later)
 
 --
 
 * Very popular language (easy to find new contributors)
+
+--
+
+* Lot of crates (Rust libraries) available - Don't have to reimplement the wheel:
+  - lscolors - provides the same colors as ls
+  - walkdir - recursive operations on the fs (cp, rm, etc)
+  - tempfile - generate some temporary files/dirs (mktemp, etc)
+  - teminal_size - to know how to display information
+
+--
+
+And very easy to use these crates + most of the time cross platform
+---
+<img src="graph.png" width="100%"/>
 
 ---
 
@@ -628,7 +548,7 @@ To achieve, we had to deploy:
 --
 
 * Improve the code coverage results (ie write plenty of tests)<br />
-  Currently <b>80.62%</b>
+  Currently <b>83.27%</b>
 
 --
 
@@ -707,62 +627,6 @@ $ ./target/debug/mkdir -p -v a/../b/../c
 ./target/debug/mkdir: created directory 'a/../b/../c'
 ```
 .footnote[https://github.com/uutils/coreutils/pull/3217]
----
-# Example of a corner case
-```bash
-$ install /dev/null $(mktemp)
-```
-Used in <a href="https://salsa.debian.org/apparmor-team/apparmor/-/blob/debian/unstable/debian/debhelper/postinst-apparmor#L9">Apparmor debian helper</a>
-
----
-# Corner cases for Rust stdlib
-
-```rust
-use std::fs;
-
-fn main() {
-    match fs::copy("/dev/null", "bar.txt") {
-        Ok(_n) => (),
-        Err(e) => {
-            println!("{}", e);
-            ()
-        }
-    }
-}
-```
-
-Fails with:
-```
-the source path is not an existing regular file
-```
-
-.footnote[https://github.com/rust-lang/rust/issues/79390]
----
-# Workaround
-
-```rust
-
-if from.as_os_str() == "/dev/null" {
-    /* workaround a limitation of fs::copy
-     * https://github.com/rust-lang/rust/issues/79390
-    */
-    if let Err(err) = File::create(to) {
-       return Err(
-           InstallError::InstallFailed(from.to_path_buf(), to.to_path_buf(), err).into(),
-        );
-    }
-} else if let Err(err) = fs::copy(from, to) {
-   return Err(InstallError::InstallFailed(from.to_path_buf(), to.to_path_buf(), err).into());
-}
-```
-
-.footnote[https://github.com/uutils/coreutils/blob/a75cfd96555f44198b5410f65ec501f89cc6ef30/src/uu/install/src/install.rs#L672-L683]
----
-
-# Let's try together
-
-
-Demo time!
 
 ---
 class: center, middle, inverse
@@ -843,39 +707,10 @@ $ hyperfine "seq 18446744073708551615 18446744073709551615 | factor" \
 
   'seq 18446744073708551615 18446744073709551615 | factor' ran
     5.08 ± 0.01 times faster than './target/release/coreutils seq 18446744073708551615 18446744073709551615| ./target/release/coreutils factor'
-
 ```
----
-
-
-# Benchmarking
-
-Demo time!
-
-With some product placement ;)
-
-Using:<br />
-https://github.com/mstange/samply<br />
-https://profiler.firefox.com/
 
 ---
-# Extending the coreutils
 
-We have a beautiful doc:
-
-https://uutils.github.io/user/
-
-with example provided by https://tldr.sh/
-
-
-<br />
-And a good developer doc:
-https://uutils.github.io/dev
-
-Example:
-<a href="https://uutils.github.io/dev/uucore/backup_control/index.html">Example with backup control</a>
-
----
 # Extending the coreutils
 
 
@@ -906,58 +741,6 @@ We took the liberty to add extra features like:
 
 * Improve performances on some key programs
 
----
-
-# How can I help?
-
-* We have good first bugs<br />
-  As I probably said, it is a great way to learn Rust
-  See https://uutils.github.io/user/test_coverage.html
-
---
-
-* We will apply to the Google summer of code 2023
-
---
-
-* Would appreciate corporate/foundation sponsors for the CI
-
-
----
-class: center, middle, inverse
-template: inverse
-
-# Let's do some predictions
-
----
-
-# What about the Linux Kernel?
-
-Merged in the main branch:
-```
-$ ohcount git@github.com:torvalds/linux.git
-
-Language          Files       Code    Comment  Comment %      Blank      Total
-----------------  -----  ---------  ---------  ---------  ---------  ---------
-c                 55128   23468316    3757486      13.8%    3915921   31141723
-[...]
-rust                 37       5451       5439      49.9%        936      11826
-```
-
-For now, in the main branch, build + glue code.
-
-Still waiting for an user-visible feature written in Rust.
-
----
-
-# In 2024
-
-We will start to see cloud provider proposing images with Rust core
-components.
-
-We will see more and more piece of the core infrastructure of Linux improved
-with Rust.
-
 
 ---
 
@@ -978,7 +761,7 @@ template: inverse
 class: center, middle, inverse
 template: inverse
 
-# Any questions?
+# Let's try together
 
 
     </textarea>
