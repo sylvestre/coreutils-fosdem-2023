@@ -41,7 +41,7 @@ class: center, middle, inverse
 
 ## Sylvestre Ledru - sylvestre@debian.org
 
-## Télécom Paris - far away from Paris<br />Thursday 16th March 2023
+## Télécom Paris<br />Thursday 28th November 2023
 
 ---
 
@@ -265,6 +265,12 @@ chmod()
 
 We take it for granted and rarely think about it but<br />
 pipes `|` and redirection `>` are amazing
+
+--
+
+It is kind of the STL for scripting (bash, zsh, etc).
+
+--
 
 Quick example:
 How would you implement an algorithm to find the 5 most popular words in all Shakespeare books? (with 6 chars or more)
@@ -508,7 +514,7 @@ And very easy to use these crates + most of the time cross platform
 # My Goals
 
 
-* My intial goals were:
+* My initial goals were:
 
   - Be able to boot Debian
 
@@ -627,6 +633,46 @@ $ ./target/debug/mkdir -p -v a/../b/../c
 ./target/debug/mkdir: created directory 'a/../b/../c'
 ```
 .footnote[https://github.com/uutils/coreutils/pull/3217]
+---
+
+
+# Fuzzing to the rescue?
+
+Fuzzing is great to find bugs. And can be extended with Differential Testing.
+
+
+--
+<a href="https://en.wikipedia.org/wiki/Differential_testing">Wikipedia</a>:
+<i> a popular software testing technique that attempts to detect bugs, by providing the same input to a series of similar applications (or to different implementations of the same application), and observing differences in their execution.</i>
+
+--
+
+We can check 3 parameters:
+
+--
+* stdout
+
+--
+* stderr
+
+--
+* exit code
+---
+# Fuzzing to the rescue? - Example
+
+Differential fuzzing between GNU and our implementation of the `expr` command.
+
+--
+```
+Running test ["expr", "49", "<", "27", "%", "75S"]
+Test Type: expr
+Input: ["49", "<", "27", "%", "75S"]
+Rust stderr: Expected an integer operand
+GNU stderr: non-integer argument
+Discrepancy detected: stderr differs
+Test completed with discrepancies for expr: ["49", "<", "27", "%", "75S"]
+```
+
 
 ---
 class: center, middle, inverse
