@@ -77,7 +77,7 @@ template: inverse
 
 # Question 1
 
-Who has strong opinions about GPL vs MIT licenses?
+**Who has strong opinions about GPL vs MIT licenses?**
 
 --
 
@@ -87,7 +87,7 @@ I don't
 
 # Question 2
 
-Who has strong opinions about the FSF?
+**Who has strong opinions about the FSF?**
 
 --
 
@@ -97,23 +97,27 @@ I don't
 
 # Question 3
 
-Who has strong opinions about C?
+**Who has strong opinions about C?**
 
 --
 
-Here, I do. C is a language from the past. It is time to move on.
+Here, I do. C is a language from the past.
+
+It is the new Fortran/Cobol.
+It is time to move on.
 
 ---
 
 # Question 4
 
-Who has strong opinions about Rust?
+**Who has strong opinions about Rust?**
+
+--
+
+OK, let's dive in!
 
 ---
 
-TODO: about dependencies
-et comparaison avec C
----
 class: center, middle, inverse
 template: inverse
 
@@ -165,13 +169,15 @@ Some gardening, wood working, etc
 
 # Me?
 
-I want to learn Rust for real with an impactful project.
+I wanted a COVID-project and Rust for real with an impactful project.
 
 ---
+
 class: center, middle, inverse
 template: inverse
 
-# What about the Coreutils ?
+# What about reimplementing the Coreutils in Rust ?
+
 ---
 
 # What about the Coreutils ?
@@ -186,8 +192,88 @@ Dropped in replacement for gcc. Missing flags are treated as bugs.
 
 TODO - add screenshot -O99
 
+
 ---
 
+# What is it?
+
+About 105 commands in the GNU implementation.
+
+Some of the less famous:
+
+```bash
+                     fold               printenv            tsort
+                     groups    mknod    printf              tty
+                                        ptx       stdbuf
+                                                  stty      unexpand
+basenc    dir        hostid             readlink
+          dircolors                     realpath
+chcon     dirname              nl       relpath   tac
+
+                     join                                   vdir
+                               numfmt   runcon
+          expand     link      od
+                               paste    shred
+comm      factor     logname   pathchk
+                               pinky
+csplit    fmt                  pr                 truncate
+```
+
+---
+
+# What is it?
+
+About 105 commands in the GNU implementation.
+
+The famous:
+
+```bash
+arch      cut                  mkfifo             split
+base32    date                                    stat
+base64    dd         hashsum   mktemp                       uname
+basename  df         head      more     pwd
+                               mv                 sum       uniq
+cat                  hostname  nice               sync      unlink
+                     id                                     uptime
+chgrp     du         install   nohup    rm        tail      users
+chmod     echo                 nproc    rmdir     tee
+chown     env        kill                         test      wc
+chroot                                  seq       timeout   who
+cksum     expr       ln                           touch     whoami
+                                        shuf      tr        yes
+cp        false      ls                 sleep     true
+                     mkdir              sort
+```
+
+---
+
+# What is it?
+
+About 105 commands in the GNU implementation.
+
+Full list:
+
+```bash
+arch      cut        fold      mkfifo   printenv  split     tsort
+base32    date       groups    mknod    printf    stat      tty
+base64    dd         hashsum   mktemp   ptx       stdbuf    uname
+basename  df         head      more     pwd       stty      unexpand
+basenc    dir        hostid    mv       readlink  sum       uniq
+cat       dircolors  hostname  nice     realpath  sync      unlink
+chcon     dirname    id        nl       relpath   tac       uptime
+chgrp     du         install   nohup    rm        tail      users
+chmod     echo       join      nproc    rmdir     tee       vdir
+chown     env        kill      numfmt   runcon    test      wc
+chroot    expand     link      od       seq       timeout   who
+cksum     expr       ln        paste    shred     touch     whoami
+comm      factor     logname   pathchk  shuf      tr        yes
+cp        false      ls        pinky    sleep     true
+csplit    fmt        mkdir     pr       sort      truncate
+```
+
+Note: grep, find, less, top or watch are NOT part of the coreutils.
+
+---
 
 # What the point ?
 
@@ -218,8 +304,6 @@ Not interested by the MIT vs GPL debate.
 
 ---
 
----
-
 # Fast forward 5 years after
 
 --
@@ -228,20 +312,80 @@ I have more grey hairs.
 
 --
 
-We are production ready
+<img src="contributor.png" />
 
 --
 
-And in production
+<img src="github-stats-2025.png" />
 
+---
 
-Number of contributors
+# Comparing with GNU's project testsuite
 
-Mettre en avant que c'est le boulot de plein de gens
+<img src="gnu-results.png" height=500/>
 
-Number of stars
+---
 
+# Stats in details
 
+Started:
+
+```
+Tue, 20 Apr 2021:
+    "total": "624",
+    "pass": " 139",
+    "skip": " 92",
+    "fail": " 368",
+    "error": "23"
+```
+
+```
+=>
+```
+
+```
+Sat, 25 Jan 2025:
+  "total": "617",
+    "pass": "499",
+    "skip": "42",
+    "fail": "76",
+    "error": "0"
+```
+
+--
+
+And we support Linux, Mac, Windows, Android, OpenBSD, FreeBSD, NetBSD, Solaris, Illumos, Fuchsia, Redox, WASM, etc
+
+---
+
+# High level
+
+We are production ready!
+
+--
+
+And used in production:
+
+--
+
+* This laptop!
+
+--
+
+* In cars with Apertis
+
+--
+
+* In Snapchat Spectacles via the Yocto project
+
+--
+
+* Microsoft is using it for VSCode web<br />
+https://code.visualstudio.com/blogs/2023/06/05/vscode-wasm-wasi
+
+--
+
+Available on all distros, some ship by default.
 
 ---
 
@@ -256,9 +400,6 @@ C'est quoi le but ?
 Education
 rajouter troll sur le C
 
-demo de samply
-demo du fuzzing
-
 ouvrir les good first bugs
 
 rajouter la liste des programmes
@@ -268,14 +409,22 @@ dpkg-query -Wf '${Package;-40}${Essential}\n' | grep yes
 
 réutilisation du code - uucore
 
+https://uutils.github.io/coreutils/docs/test_coverage.html
+
+TODO: about dependencies
+et comparaison avec C
+
 dire que c'est soutenu par aucune boite
 
 ---
-Expliquer ce que sont les coreutils
-(ou reprendre la suite)
+class: center, middle, inverse
+template: inverse
 
----
+# Why Rust rocks for this?
 
+--
+
+# Demos
 
 ---
 
@@ -283,11 +432,26 @@ Expliquer ce que sont les coreutils
 
 How easy is it run tests
 
+<!--
+cargo test --features unix test_sort
+-->
+
 ---
 
 # Demo 2
 
 Benchmarking
+
+--
+
+Sometimes, we are faster, sometimes, we are slower.
+
+<!--
+/usr/bin/sort --version
+hyperfine "./target/debug/coreutils sort shakespeare.txt" "/usr/bin/sort shakespeare.txt"
+cargo build --features unix --release
+hyperfine "./target/release/coreutils sort shakespeare.txt" "/usr/bin/sort shakespeare.txt"
+-->
 
 ---
 
@@ -295,205 +459,19 @@ Benchmarking
 
 Profiling
 
+<!--
+samply record ./target/debug/coreutils sort shakespeare.txt
+patch -p1 < sort-1.diff
+git checkout src/
+patch -p1 < sort-2.diff
+-->
+
+
+---
+
+# Demo 4
 
 Fuzzing
-
-
-
-
-
----
-
-# Side note
-
-<img src="Ken_Thompson_and_Dennis_Ritchie--1973.jpg" />
-
-Adam Gordon Bell interviewed Brian Kernighan in his podcast:<br />
-
-https://corecursive.com/brian-kernighan-unix-bell-labs1/<br />
-
-<code>he [Ken] built himself basically a working operating system in three weeks.</code>
-
-In the expression, <i>standing on the shoulders of giants</i>. They are our giants.
-
----
-
-# A simple programming language
-
-We take it for granted and rarely think about it but<br />
-pipes `|` and redirection `>` are amazing
-
---
-
-It is kind of the STL for scripting (bash, zsh, etc).
-
---
-
-Quick example:
-How would you implement an algorithm to find the 5 most popular words in all Shakespeare books? (with 6 chars or more)
-
---
-
-```
-$ tr -cs A-Za-z '\n' < shakespeare.txt | tr A-Z a-z | grep -E '^.{6,}$' | sort |
-uniq -c | sort -rn | head -n 5
-```
-
---
-
-By the way, the results:
-```
-   1706 should
-   1125 father
-   1082 exeunt
-    952 before
-    876 master
-```
-
----
-class: center, middle, inverse
-template: inverse
-
-# Fast forward to 2023
-
----
-
-# Fast forward to 2023
-
-About 105 commands in the GNU implementation.
-
-```bash
-arch      cut        fold      mkfifo   printenv  split     tsort
-base32    date       groups    mknod    printf    stat      tty
-base64    dd         hashsum   mktemp   ptx       stdbuf    uname
-basename  df         head      more     pwd       stty      unexpand
-basenc    dir        hostid    mv       readlink  sum       uniq
-cat       dircolors  hostname  nice     realpath  sync      unlink
-chcon     dirname    id        nl       relpath   tac       uptime
-chgrp     du         install   nohup    rm        tail      users
-chmod     echo       join      nproc    rmdir     tee       vdir
-chown     env        kill      numfmt   runcon    test      wc
-chroot    expand     link      od       seq       timeout   who
-cksum     expr       ln        paste    shred     touch     whoami
-comm      factor     logname   pathchk  shuf      tr        yes
-cp        false      ls        pinky    sleep     true
-csplit    fmt        mkdir     pr       sort      truncate
-```
-
-Note: grep, find, less, top or watch are NOT part of the coreutils.
-
----
-
-# And plenty of arguments
-
-Example with `cp` and other commands
-
-
-```bash
-$ cp --help    | grep "  -" | wc -l
-34
-
-$ chown --help | grep "  -" | wc -l
-15
-
-$ ln --help    | grep "  -" | wc -l
-16
-
-$ ls --help    | grep "  -" | wc -l
-61
-```
-
----
-# Quick quizz
-
-Who knows about ...
-
---
-* ls/cp/mv/rm/mkdir
-
---
-* chown/chmod/chgrp
-
---
-* numfmt
-```bash
-  echo 1.18GB|coreutils  numfmt --from=si --suffix=B
-  1180000000B
-```
-
----
-# Quick quizz
-
-Who knows about ...
-* ls/cp/mv/rm/mkdir
-* chown/chmod/chgrp
-* numfmt
-* pr
-
---
-```
-  convert text files for printing
-```
-
----
-# Quick quizz
-
-Who knows about ...
-* ls/cp/mv/rm/mkdir
-* chown/chmod/chgrp
-* numfmt
-* pr
-
---
-* csplit
-
---
-```
-  split a file into sections determined by context lines
-```
-
----
-# Quick quizz
-
-Who knows about ...
-* ls/cp/mv/rm/mkdir
-* chown/chmod/chgrp
-* numfmt
-* pr
-* csplit
-* and others like factor, pinky, tsort, shuf, shred, seq, etc
-
----
-
-# Now, this Rust implementation?
-
-* Started by Jordi Boggiano in 2013 (yeah, before Rust 1.0)
-
-* Found it early 2020, saw that some maintainers were still around helping
-
-* Started to contribute in April 2020 for real and quickly took over
-
----
-
-# Some stats now
-
-<img src="github-stats.png"   height=50 />
-
-<img src="github-stats-2.png"  height=200 />
-
----
-
-# Status
-
-* Packaged in most of the <a href="https://uutils.github.io/user/installation.html">linux distros</a>
-
---
-
-* Used by Apertis
-
---
-
-* Used by a famous social network via the Yocto project
 
 ---
 
@@ -507,7 +485,7 @@ Who knows about ...
 
 --
 
-* Terrific performances (more later)
+* Terrific performances
 
 --
 
@@ -847,6 +825,49 @@ We took the liberty to add extra features like:
 --
 
 * Improve performances on some key programs
+
+
+---
+
+class: center, middle, inverse
+template: inverse
+
+# OK, Coreutils - done. What is next?
+
+---
+
+# In parallel
+
+We have been working on findutils and diffutils.
+
+
+---
+
+# Big plan
+
+We want to do the same with most of the essential packages on Debian.
+
+What are the essential packages?
+
+---
+
+# An old Chinese proverb
+
+The best time to plant a tree was twenty years ago. The second best is now.
+
+---
+
+
+# The list
+
+Who knows what is inside?
+util
+
+TODO
+---
+
+It is a community effort and we have much to do.
+Implement programs, options , compatbility
 
 
 ---
