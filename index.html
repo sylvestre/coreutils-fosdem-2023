@@ -271,42 +271,18 @@ cp        false      ls        pinky    sleep     true
 csplit    fmt        mkdir     pr       sort      truncate
 ```
 
-Note: grep, find, less, top or watch are NOT part of the coreutils.
-
 ---
 
-# What the point ?
-
-Well, it is a good question
-
---
-
-1. Why not?
-
---
-
-2. Rust rocks.
-
---
-
-3. It is NOT about security<br />
-https://security-tracker.debian.org/tracker/source-package/coreutils<br />
-Only 17 CVE in GNU/Coreutils since 2003
-
---
-
-4. It is NOT about license (for me at least).<br />
-Not interested by the MIT vs GPL debate.
-
---
-
-5. It is very interesting.
-
----
+class: center, middle, inverse
+template: inverse
 
 # Fast forward 5 years after
 
---
+---
+
+
+
+# Fast forward 5 years after
 
 I have more grey hairs.
 
@@ -358,7 +334,7 @@ And we support Linux, Mac, Windows, Android, OpenBSD, FreeBSD, NetBSD, Solaris, 
 
 ---
 
-# High level
+# Current status?
 
 We are production ready!
 
@@ -372,7 +348,7 @@ And used in production:
 
 --
 
-* In cars with Apertis
+* In cars/IoT with Apertis
 
 --
 
@@ -389,7 +365,36 @@ Available on all distros, some ship by default.
 
 ---
 
+# What are the benefits?
 
+--
+
+1. Rust is replacing C in more and more places (Browsers, Kernel, OS, etc).
+
+--
+
+2. Rust rocks.
+
+--
+
+3. It is NOT about security<br />
+https://security-tracker.debian.org/tracker/source-package/coreutils<br />
+Only 17 CVE in GNU/Coreutils since 2003
+
+--
+
+4. It is NOT about license (for me at least).<br />
+Not interested by the MIT vs GPL debate.
+
+--
+
+5. As developer, it is very interesting.
+
+--
+
+6. For the new generations of hackers, Rust is more appealing.
+
+---
 
 TODO
 
@@ -433,6 +438,9 @@ template: inverse
 How easy is it run tests
 
 <!--
+
+SPEAK SLOW
+
 cargo test --features unix test_sort
 -->
 
@@ -756,6 +764,10 @@ TODO
 
 It is a community effort and we have much to do.
 Implement programs, options , compatbility
+
+---
+
+
 
 
 ---
